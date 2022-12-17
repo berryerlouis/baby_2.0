@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "Arduino",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "DEBUG",
+                "RELEASE",
+            ],
+            "intelliSenseMode": "${default}"
+        }
+    ],
+    "version": 4
+}
