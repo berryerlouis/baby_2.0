@@ -18,18 +18,14 @@ enum PiezzoState_e
 class Piezzo 
 {
     public:
-        //attributes
-        typedef void (*callbackPiezzoChangedState)(PiezzoState_e state);
         //methodes
-        Piezzo(byte pin, callbackPiezzoChangedState cb);
+        Piezzo(byte pin);
         PiezzoState_e getState( void );
 
     private:
         //attributes
-        byte pinPiezzo;  
-        PiezzoState_e state;
-        callbackPiezzoChangedState cb;      
+        volatile PiezzoState_e state;
+        byte pinPiezzo;     
 };
 
 #endif // PIEZZO_HPP
-

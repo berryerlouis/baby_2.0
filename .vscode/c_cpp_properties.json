@@ -2,14 +2,16 @@
     "configurations": [
         {
             "name": "Arduino",
+            "compilerPath": "C:/Users/berryer.l/AppData/Local/Arduino15/packages/arduino/**",
             "includePath": [
                 "${workspaceFolder}/**"
             ],
             "defines": [
-                "DEBUG",
-                "RELEASE",
+                "_DEBUG",
+                "_RELEASE"
             ],
-            "intelliSenseMode": "${default}"
+            "cStandard": "c17",
+            "cppStandard": "c++23"
         }
     ],
     "version": 4

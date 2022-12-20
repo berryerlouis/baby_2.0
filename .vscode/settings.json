@@ -1,11 +1,7 @@
 {
     "arduino.path": "C:/Program Files/Arduino",
-    "arduino.commandPath": "arduino-cli.exe",
-    "arduino.logLevel": "info",
-    "arduino.allowPDEFiletype": false,
-    "arduino.enableUSBDetection": true,
-    "arduino.disableTestingOpen": false,
-    "arduino.skipHeaderProvider": false,
-    "arduino.additionalUrls": [],
-    "arduino.defaultBaudRate": 115200
+    "arduino.useArduinoCli": true,
+    "arduino.logLevel": "verbose",
+    "arduino.defaultBaudRate": 115200,
+    "C_Cpp.errorSquiggles": "disabled",
 }
