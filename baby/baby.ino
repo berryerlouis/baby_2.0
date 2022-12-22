@@ -1,19 +1,13 @@
 #include <Arduino.h>
-#include "./src/Piezzo.h"
-#include "./src/Led.h"
+#include "./src/hardware.h"
+#include "./src/piezzo.h"
+#include "./src/led.h"
+#include "./src/rubanLed.h"
 
 /************************************************************************/
 /* Private Define                                                       */
 /************************************************************************/
-#define NB_PIEZZOS		2U
-#define ID_PIEZZO_1		0U
-#define ID_PIEZZO_2		1U
-#define PIN_PIEZZO_1	A0
-#define PIN_PIEZZO_2	A1
 
-#define NB_LEDS			1U
-#define ID_LED_1		0U
-#define PIN_LED_1		LED_BUILTIN
 
 /************************************************************************/
 /* Static methods                                                       */
@@ -22,9 +16,16 @@
 /************************************************************************/
 /* Private variable                                                     */
 /************************************************************************/
-Piezzo *piezzos[ NB_PIEZZOS ];
-Led *leds[ NB_LEDS ];
+Piezzo *piezzos[ PIEZZOS_NB ];
 
+Led *leds[ LEDS_NB ];
+
+RubanLed *rubanLed[ LED_RUBAN_NB ];
+byte ledsRubanBuffer[LED_RUBAN_LEDS_NB * LED_RUBAN_COLORS] = { 0U };
+
+/************************************************************************/
+/* Setup function                                                       */
+/************************************************************************/
 void setup( void ) 
 {
 	//sytem init
@@ -33,23 +34,31 @@ void setup( void )
 	
 	//init led
     Serial.println("\t-Led");
-	leds[ ID_LED_1 ] = new Led(PIN_LED_1);
-	leds[ ID_LED_1 ]->setState(LED_ON);
+	leds[ LED_ID_1 ] = new Led(LED_PIN_1);
+	leds[ LED_ID_1 ]->setState(LED_ON);
 
 	//init piezzos	
     Serial.println("\t-Piezzos");
-	piezzos[ ID_PIEZZO_1 ] = new Piezzo(PIN_PIEZZO_1);
-	piezzos[ ID_PIEZZO_2 ] = new Piezzo(PIN_PIEZZO_2);
+	piezzos[ PIEZZO_ID_1 ] = new Piezzo(PIEZZO_PIN_1);
+	piezzos[ PIEZZO_ID_2 ] = new Piezzo(PIEZZO_PIN_2);
+
+	//init ruban	
+    Serial.println("\t-Ruban Led");
+	rubanLed[ LED_RUBAN_ID_1 ] = new RubanLed(LED_RUBAN_PIN,LED_RUBAN_LEDS_NB,ledsRubanBuffer);
 	
 	//sytem is ready
-	leds[ ID_LED_1 ]->setState(LED_OFF);
+	leds[ LED_ID_1 ]->setState(LED_OFF);
     Serial.println("Initialization Done !");
 }
 
 
+/************************************************************************/
+/* Loop function                                                        */
+/************************************************************************/
 void loop() 
 {
-	for (unsigned int i = 0U; i < NB_PIEZZOS; i++)
+	rubanLed[ LED_RUBAN_ID_1 ]->refreshLeds();
+	for (unsigned int i = 0U; i < PIEZZOS_NB; i++)
 	{
 		if(piezzos[ i ]->getState() == PIEZZO_IMPACT)
 		{
